@@ -17,8 +17,9 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'class' => \yii\web\User::className(),
+//            'identityClass' => 'common\models\User',
+//            'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
             'loginUrl'=>['admin/login'],
             'identityClass' => \backend\models\Admin::className(),

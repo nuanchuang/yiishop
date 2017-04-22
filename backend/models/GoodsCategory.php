@@ -72,6 +72,7 @@ class GoodsCategory extends \yii\db\ActiveRecord
         ];
     }
 
+
     public function transactions()
     {
         return [
@@ -79,13 +80,21 @@ class GoodsCategory extends \yii\db\ActiveRecord
         ];
     }
 
+
     public static function find()
     {
         return new GoodsCategoryQuery(get_called_class());
     }
 
+    //创建顶级分类
     public static function getZNodes(){
         return array_merge([['id'=>0,'parent_id'=>0,'name'=>'顶级分类']],self::find()->asArray()->all());
+    }
+
+
+    //获取自身表的二级分类
+    public function getChildren(){
+        return $this->hasMany(self::className(),['goods_id'=>'id']);
     }
 
 }

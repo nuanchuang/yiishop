@@ -44,8 +44,7 @@ EOF
 
 
 echo $form->field($model,'goods_category_id')->hiddenInput();
-
-echo $form->field($model,'brand_id');
+echo $form->field($model,'brand_id')->dropDownList(\backend\models\Goods::getClass());
 echo $form->field($model,'market_price');
 echo $form->field($model,'shop_price');
 echo $form->field($model,'stock');

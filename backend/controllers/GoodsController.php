@@ -52,16 +52,18 @@ class GoodsController extends \yii\web\Controller
                 $goods_intro->goods_id = $model->id;
                 $goods_intro->save();
                 GoodsDayCount::updateAllCounters(['count'=>1],['day'=>$day]);
+//                var_dump($model);
+//                exit;
 
 
                 \Yii::$app->session->setFlash('success','添加商品成功,请添加相册');
-                return $this->redirect('goods/logo',['id'=>$model->id]);
+                return $this->redirect(['goods/gallery','id'=>$model->id]);
             }
 //            $model->save();
 //            $goods_intro->goods_id = $model->id;
-            $goods_intro->save();
-            \Yii::$app->session->setFlash('添加成功');
-            return $this->render('logo');
+//            $goods_intro->save();
+//            \Yii::$app->session->setFlash('添加成功');
+//            return $this->redirect(['goods/gallery','id'=>$model->id]);
 
         }
         return $this->render('add',['model'=>$model,'goods_intro'=>$goods_intro]);
@@ -123,7 +125,7 @@ class GoodsController extends \yii\web\Controller
         ];
     }
 
-    public function actionLogo($id){
+    public function actionGallery($id){
         $goods = Goods::findOne(['id'=>$id]);
         if($goods == null){
             return '商品不存在';

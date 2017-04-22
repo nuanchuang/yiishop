@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "goods".
@@ -40,7 +41,7 @@ class Goods extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'sn', 'logo'], 'required'],
+            [['name', 'sn'], 'required'],
             [['goods_category_id', 'brand_id', 'stock', 'is_on_sale', 'status', 'sort', 'inputtime'], 'integer'],
             [['market_price', 'shop_price'], 'number'],
             [['name'], 'string', 'max' => 50],
@@ -81,6 +82,11 @@ class Goods extends \yii\db\ActiveRecord
     //获取商品详情
     public function getIntro(){
         return $this->hasOne(GoodsIntro::className(),['goods_id'=>'id']);
+    }
+
+    public static function getClass(){
+        $class = Brand::find()->asArray()->all();
+        return ArrayHelper::map($class,'id','name');
     }
 }
 

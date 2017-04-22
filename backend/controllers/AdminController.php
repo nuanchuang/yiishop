@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Admin;
 //use backend\models\Login;
-use common\models\LoginForm;
+use backend\models\LoginForm;
 use yii\data\Pagination;
 
 class AdminController extends \yii\web\Controller
@@ -66,14 +66,26 @@ class AdminController extends \yii\web\Controller
 
 
     public function actionLogin(){
-        $model = new Admin();
+        $model = new LoginForm();
         if($model->load(\Yii::$app->request->post())){
-            if($model->validate()){
-                echo "111";
-            }else{
-                var_dump($model->getErrors());
-                exit;
+            if($model->login()){
+                \Yii::$app->session->setFlash('success','登录成功');
+                return $this->redirect(['admin/index']);
             }
+//            if($model->validate()){
+//                $admin = Admin::findOne(['username'=>$model->username]);
+//                if($admin){
+//                    if($admin->password == $model->password){
+//
+//                    }else{
+////                        \Yii::$app->session->setFlash('danger','密码错误');
+//                        $model->addError('password','密码错误');
+//                    };
+//                }
+//            }else{
+////                \Yii::$app->session->setFlash('danger','用户名不存在');
+//                $model->addError('password','用户名不存在');
+//            }
         }
         return $this->render('login',['model'=>$model]);
     }
